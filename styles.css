@@ -65,6 +65,10 @@ body {
     padding: 10px;
 }
 
+.result:hover {
+    box-shadow: 5px 5px 5px #C2B280;
+}
+
 .buttons {
     display: flex;
     flex-direction: column;
@@ -85,8 +89,17 @@ body {
 
 button {
     background-color: white;
+    font-size: 16px;
     width: 50px;
     border-radius: 15px;
+}
+
+button:hover {
+    box-shadow: 2px 2px 2px #C2B280;
+}
+
+.operators {
+    background-color: darkgray;
 }
 
 .orange-bg {
@@ -96,9 +109,15 @@ button {
 .equals {
     background-color: black;
     color: white;
-    font-size: 20px;
+    font-size: 24px;
     box-sizing: border-box;
     border: 1px solid white;
+}
+
+.equals:hover {
+    background-color: #C2B280;
+    color: black;
+    border-color: black;
 }
 
 p {
