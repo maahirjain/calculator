@@ -48,6 +48,7 @@ body {
     width: 250px;
     min-height: 25px;
     padding: 10px;
+    transition: margin 100ms;
 }
 
 .raised-box {

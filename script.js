@@ -127,6 +127,11 @@ function replaceAllBracketExpr(expression, computedArr) {
     return expression;
 }
 
+String.prototype.replaceAt = function(index, replacement) {
+    let extra = this.substring(index + 1, this.length);
+    return this.substring(0, index) + replacement + extra;
+}
+
 function evaluate(expr) {
     let str = expr;
     let originalArr = findOuterBracketIndices(expr);
@@ -139,11 +144,195 @@ function evaluate(expr) {
         computedArr.push(evaluatedExpr);
     }
 
+    for(let i = 0; i < str.length; i++) {
+        if ((str.at(i) === "(") && ")0123456789".includes(str.at(i - 1)) && i - 1 >= 0) {
+            str = str.replaceAt(i, " * (");
+        }
+    }
+
     return evaluateSingle(replaceAllBracketExpr(str, computedArr));
 }
 
-// don't allow repeated math operators
-// don't allow repeated dots in a single number
-// after equals clicked, check() if brackets are violated --> if yes, alert
-// if ans > e+18, don't input --> otherwise input (+ans).toPrecision()
-// max chars: 300
+function buttonClicked(text) {
+    let expression = document.querySelector(".input").textContent;
+            
+    if (expression === "0") { expression = ""; }
+
+    if (followsRules(expression + text.currentTarget.param)) { expression += text.currentTarget.param; }
+    document.querySelector(".input").textContent = expression;
+}
+
+function display() {
+    let buttons = Array.from(document.querySelectorAll("button"));
+
+    for (let i = 0; i < buttons.length; i++) {
+        if (buttons[i].classList.contains("equals") || buttons[i].classList.contains("orange-bg")) {
+            buttons.splice(i, 1);
+        }
+    }
+
+    buttons.splice(3, 1);
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", buttonClicked);
+        button.param = button.textContent;
+    });
+}
+
+function del() {
+    let displayExpr = document.querySelector(".input").textContent;
+        
+    if (displayExpr.at(-1) === "0") {}
+    else if (displayExpr.at(-1) === " ") { displayExpr = displayExpr.substring(0, displayExpr.length - 3); }
+    else { displayExpr = displayExpr.substring(0, displayExpr.length - 1); }
+
+    if (displayExpr === "") { displayExpr = 0; }
+
+    document.querySelector(".input").textContent = displayExpr;
+}
+
+function ac() {
+    document.querySelector(".input").textContent = "0";
+
+    let resultDiv = document.querySelector(".result");
+    resultDiv.textContent = "";
+    if (resultDiv.classList.contains("raised-box")) { resultDiv.classList.remove("raised-box"); }
+}
+
+function clear() {
+    document.querySelector("#DEL").addEventListener("click", del);
+
+    document.querySelector("#AC").addEventListener("click", ac);
+}
+
+function ans() {
+    let div = document.querySelector(".result");
+    let expression = document.querySelector(".input").textContent;
+            
+    if (expression === "0") { expression = ""; }
+
+    let ans = div.textContent.slice(2);
+
+    if (+ans.replace("–", "-") < 1e+18) { expression = expression + "(" + (+ans.replace("–", "-")).toPrecision().replace("-", "–") + ")"; }
+    document.querySelector(".input").textContent = expression;
+}
+
+function inputAns() {
+    let div = document.querySelector(".result");
+
+    div.addEventListener("click", ans);
+}
+
+function followsRules(str) {
+    if (str.length > 300) { return false; }
+    
+    disallowedStrings = ["+÷", "+/", "+*", "+✕", "–÷", "–/", "–*", "–✕", 
+        "÷÷", "÷/", "÷*", "÷✕", "÷+", "÷–", "/÷", "//", "/*", "/✕", "/+", "/–", 
+        "*÷", "*/", "**", "*✕", "*+", "*–", "✕÷", "✕/", "✕*", "✕✕", "✕+", "✕–", "()", 
+        "+)", "–)", "✕)", "÷)", "*)", "/)", ".+", ".–", ".✕", ".÷", ".*", "./", ".)", ".(",").", 
+        "/0", "÷0"];
+
+    if (disallowedStrings.some(substring=>str.replace(/\s/g, "").includes(substring))) {
+        return false;
+    }
+
+    let dotFlag = false;
+    let bracketAfterDot = false;
+    for (let i = 0; i < str.length; i++) {
+        if (str.at(i) === ".") { 
+            if (dotFlag && !bracketAfterDot) {
+                return false;
+            }
+
+            dotFlag = true; 
+        }
+
+        if (str.at(i) === " ") { dotFlag = false; }
+        if (str.at(i) === "(") { bracketAfterDot = true; }
+    }
+
+    let openBracket = false;
+    for (let i = 0; i < str.length; i++) {
+        if (str.at(i) === "(") { 
+            openBracket = true;
+        }
+
+        if (str.at(i) === ")" && !openBracket) { return false; }
+    }
+
+    return true;
+}
+
+function keyboard() {
+    document.addEventListener("keydown", (e) => {
+        let keyCode = e.key;
+
+        if (keyCode === "+") {
+            e.currentTarget.param = " + ";
+        } else if (keyCode === "-") {
+            e.currentTarget.param = " – ";
+        } else if (keyCode === "*") {
+            e.currentTarget.param = " × ";
+        } else if (keyCode === "/") {
+            e.currentTarget.param = " ÷ ";
+        } else {
+            e.currentTarget.param = keyCode;
+        }
+
+        if ("0123456789.()+-*/".includes(keyCode)) {
+            buttonClicked(e);
+        } else if (keyCode === "Backspace") {
+            del();
+        } else if (keyCode === "Escape") {
+            ac();
+        } else if (keyCode === "Enter") {
+            enter();
+        }
+    });
+}
+
+function alertWrong() {
+    let target = document.querySelector(".input");
+
+    target.style.backgroundColor = "red";
+    target.style.marginLeft='8px';
+    setTimeout(function(){target.style.marginLeft='0px';},100);
+    setTimeout(function(){target.style.marginLeft='8px';},200);
+    setTimeout(function(){target.style.marginLeft='0px';},300);
+
+    setTimeout(function () {
+            target.style.backgroundColor = "darkorange";
+    }, 1000);
+
+    document.querySelector(".result").textContent = "ERROR";
+}
+
+function enter() {
+    let expression = document.querySelector(".input").textContent;
+    let resultDiv = document.querySelector(".result");
+
+    try {
+        let evaluatedExpr = evaluate(expression);
+
+        if (!check(expression) || evaluatedExpr === "Infinity" || evaluatedExpr === "-Infinity") {
+            alertWrong();
+        } else {
+            resultDiv.classList.add("raised-box");
+            resultDiv.textContent = "= " + evaluatedExpr;
+        }
+    } catch(err) {
+        alertWrong();
+    }
+}
+
+function equals() {
+    let equalsButton = document.querySelector(".equals");
+
+    equalsButton.addEventListener("click", enter);
+}
+
+display();
+clear();
+inputAns();
+keyboard();
+equals();
