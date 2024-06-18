@@ -182,7 +182,7 @@ function display() {
 function del() {
     let displayExpr = document.querySelector(".input").textContent;
         
-    if (displayExpr.at(-1) === "0") {}
+    if (displayExpr === "0") {}
     else if (displayExpr.at(-1) === " ") { displayExpr = displayExpr.substring(0, displayExpr.length - 3); }
     else { displayExpr = displayExpr.substring(0, displayExpr.length - 1); }
 
