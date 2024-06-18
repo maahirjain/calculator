@@ -13,5 +13,6 @@ The calculator has the following features:
 - Provides visual feedback for various interactions
 - Responds to all kinds of devices
 - Rounds answers to two decimal places
+- Does NOT use JavaScript [eval()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval)!
 
 ![Screenshot of Calculator](./screenshot.png)
