@@ -108,7 +108,7 @@ function compute(expression) {
 
     if (checkBrackets(expression)) {
         arr = findOuterBracketIndices(expression);
-        expression = expression.replaceBetween(arr[0], arr[1] + 1, compute(expression.substring(arr[0] + 1, arr[1])));
+        expression = expression.replaceBetween(arr[0], arr[1] + 1, evaluate(expression.substring(arr[0] + 1, arr[1])));
     }
 
     return calculate(expression);
@@ -224,7 +224,7 @@ function inputAns() {
 }
 
 function followsRules(str) {
-    if (str.length > 300) { return false; }
+    if (str.length > 200) { return false; }
     
     disallowedStrings = ["+÷", "+/", "+*", "+×", "–÷", "–/", "–*", "–×", 
         "÷÷", "÷/", "÷*", "÷×", "÷+", "÷–", "/÷", "//", "/*", "/×", "/+", "/–", 

@@ -45,6 +45,7 @@ body {
     background-color: darkorange;
     color: white;
     font-size: 24px;
+    word-break: break-all;
     width: 250px;
     min-height: 25px;
     padding: 10px;
@@ -62,6 +63,7 @@ body {
     align-items: center;
     color: white;
     font-size: 24px;
+    word-break: break-all;
     width: 250px;
     height: 50px;
     outline: 2px solid white;
