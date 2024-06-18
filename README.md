@@ -9,7 +9,7 @@ The calculator has the following features:
 - Provides visual feedback for ambiguous or undefined computations
 - Restricts the input of undefined expressions
 - Supports parentheses, decimals, integers, and the basic arithmetic operators, and follows the order of operations
-- Supports character deletion and clearing of the input
+- Supports backspace and clearing of the input
 - Provides visual feedback for various interactions
 - Responds to all kinds of devices
 - Rounds answers to two decimal places
