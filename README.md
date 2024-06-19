@@ -4,7 +4,7 @@ A web calculator I built that supports parentheses, decimals, and follows the [o
 
 The calculator has the following features:
 - Accepts inputs up to 200 characters
-- Allows the user to enter the computed answer back into the input expression by clicking it
+- Allows the user to use the computed answer for further calculations by clicking it or by pressing <kbd>A</kbd>.
 - Includes both keyboard and button support
 - Provides visual feedback for ambiguous or undefined computations
 - Restricts the input of undefined expressions
