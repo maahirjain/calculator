@@ -221,6 +221,19 @@ function ans() {
     document.querySelector(".input").textContent = expression;
 }
 
+function useAns() {
+    let div = document.querySelector(".result");
+    let expression = document.querySelector(".input").textContent;
+            
+    if (expression === "∅") { expression = ""; }
+
+    let ans = div.textContent.slice(2);
+
+    if (+ans.replace("–", "-") < 1e+18) { expression = expression + "(" + (+ans.replace("–", "-")).toPrecision().replace("-", "–") + ")"; }
+    document.querySelector(".input").textContent = expression;
+}
+
+
 function inputAns() {
     let div = document.querySelector(".result");
 
@@ -295,6 +308,8 @@ function keyboard() {
             enter();
         } else if ((keyCode === "A" || keyCode === "a")) {
             ans();
+        } else if ((keyCode === "U" || keyCode === "u")) {
+            useAns();
         }
     });
 }
