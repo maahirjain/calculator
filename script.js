@@ -148,6 +148,10 @@ function evaluate(expr) {
         if ((str.at(i) === "(") && ")0123456789".includes(str.at(i - 1)) && i - 1 >= 0) {
             str = str.replaceAt(i, " * (");
         }
+
+        if ((str.at(i) === ")") && "0123456789".includes(str.at(i + 1)) && i + 1 < str.length) {
+            str = str.replaceAt(i, ") * ");
+        }
     }
 
     return evaluateSingle(replaceAllBracketExpr(str, computedArr));
@@ -156,7 +160,7 @@ function evaluate(expr) {
 function buttonClicked(text) {
     let expression = document.querySelector(".input").textContent;
             
-    if (expression === "0") { expression = ""; }
+    if (expression === "∅") { expression = ""; }
 
     if (followsRules(expression + text.currentTarget.param)) { expression += text.currentTarget.param; }
     document.querySelector(".input").textContent = expression;
@@ -182,7 +186,7 @@ function display() {
 function del() {
     let displayExpr = document.querySelector(".input").textContent;
         
-    if (displayExpr === "0") {}
+    if (displayExpr === "∅") {}
     else if (displayExpr.at(-1) === " ") { displayExpr = displayExpr.substring(0, displayExpr.length - 3); }
     else { displayExpr = displayExpr.substring(0, displayExpr.length - 1); }
 
@@ -192,7 +196,7 @@ function del() {
 }
 
 function ac() {
-    document.querySelector(".input").textContent = "0";
+    document.querySelector(".input").textContent = "∅";
 
     let resultDiv = document.querySelector(".result");
     resultDiv.textContent = "";
@@ -209,11 +213,11 @@ function ans() {
     let div = document.querySelector(".result");
     let expression = document.querySelector(".input").textContent;
             
-    if (expression === "0") { expression = ""; }
+    if (expression === "∅") { expression = ""; }
 
     let ans = div.textContent.slice(2);
 
-    if (+ans.replace("–", "-") < 1e+18) { expression = expression + "(" + (+ans.replace("–", "-")).toPrecision().replace("-", "–") + ")"; }
+    if (+ans.replace("–", "-") < 1e+18) { expression = (+ans.replace("–", "-")).toPrecision().replace("-", "–"); }
     document.querySelector(".input").textContent = expression;
 }
 
@@ -279,6 +283,8 @@ function keyboard() {
             e.currentTarget.param = keyCode;
         }
 
+        console.log(keyCode);
+
         if ("0123456789.()+-*/".includes(keyCode)) {
             buttonClicked(e);
         } else if (keyCode === "Backspace") {
@@ -287,6 +293,8 @@ function keyboard() {
             ac();
         } else if (keyCode === "Enter") {
             enter();
+        } else if ((keyCode === "A" || keyCode === "a")) {
+            ans();
         }
     });
 }
