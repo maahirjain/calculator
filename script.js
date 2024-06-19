@@ -190,7 +190,7 @@ function del() {
     else if (displayExpr.at(-1) === " ") { displayExpr = displayExpr.substring(0, displayExpr.length - 3); }
     else { displayExpr = displayExpr.substring(0, displayExpr.length - 1); }
 
-    if (displayExpr === "") { displayExpr = 0; }
+    if (displayExpr === "") { displayExpr = "∅"; }
 
     document.querySelector(".input").textContent = displayExpr;
 }
