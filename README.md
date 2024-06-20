@@ -20,7 +20,7 @@ A web calculator I built that supports parentheses, decimals, and follows the [o
 - Press <kbd>A</kbd> or click the computed answer to _replace_ the existing input with the computed answer.
 - Press <kbd>U</kbd> to _use_ the computed answer in the existing input expression.
 - Press <kbd>delete</kbd>, <kbd>Backspace</kbd> or click `DEL` to delete the last entered character.
-- Press <kbd>return</kbd>, <kbd>Enter</kbd> or click `=` to evaluate the input expression.
+- Press <kbd>return</kbd>, <kbd>Enter</kbd>, <kbd>=</kbd> or click `=` to evaluate the input expression.
 - Press <kbd>*</kbd> or click `×` to input the multiplication operator.
 - Press <kbd>/</kbd> or click `÷` to input the division operator.
 - Press <kbd>+</kbd>, <kbd>-</kbd>, <kbd>(</kbd>, <kbd>)</kbd>, <kbd>.</kbd>, <kbd>0</kbd>, <kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>, <kbd>5</kbd>, <kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>, <kbd>9</kbd> or click the corresponding buttons to input them into the current expression.

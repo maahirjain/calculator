@@ -304,7 +304,7 @@ function keyboard() {
             del();
         } else if (keyCode === "Escape") {
             ac();
-        } else if (keyCode === "Enter") {
+        } else if (keyCode === "Enter" || keyCode === "=") {
             enter();
         } else if ((keyCode === "A" || keyCode === "a")) {
             ans();
