@@ -2,6 +2,11 @@
 
 A web calculator I built that supports parentheses, decimals, and follows the [order of operations](https://en.wikipedia.org/wiki/Order_of_operations).
 
+## [Live Preview](https://maahirjain.github.io/calculator)
+Visit at [maahirjain.github.io/calculator](https://maahirjain.github.io/calculator).
+
+![Screenshot of Calculator](./screenshot.png)
+
 ## Features
 - Accepts inputs up to 200 characters
 - Allows the user to use the computed answer for further calculations
@@ -24,5 +29,3 @@ A web calculator I built that supports parentheses, decimals, and follows the [o
 - Press <kbd>*</kbd> or click `×` to input the multiplication operator.
 - Press <kbd>/</kbd> or click `÷` to input the division operator.
 - Press <kbd>+</kbd>, <kbd>-</kbd>, <kbd>(</kbd>, <kbd>)</kbd>, <kbd>.</kbd>, <kbd>0</kbd>, <kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>, <kbd>5</kbd>, <kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>, <kbd>9</kbd> or click the corresponding buttons to input them into the current expression.
-
-![Screenshot of Calculator](./screenshot.png)
